@@ -1,0 +1,15 @@
+#Create Resource Group
+az group create --location brazilsouth --name rg-haproxy
+
+#Create Virtual Network
+az network vnet create --resource-group rg-haproxy --location brazilsouth --name vnet-haproxy --address-prefix 10.15.0.0/25 --subnet-name subnet-haproxy --subnet-prefix 10.15.0.0/25
+
+#Create Network Interface
+#az network nic create -g rg-proxy -n nic-HAPROXY -l brazilsouth --vnet-name vnet-haproxy --subnet subnet-haproxy --private-ip-address 10.15.0.7
+#az network nic create -g rg-proxy -n nic-VMNGINX01 -l brazilsouth --vnet-name vnet-haproxy --subnet subnet-haproxy --private-ip-address 10.15.0.10 
+#az network nic create -g rg-proxy -n nic-VMNGINX02 -l brazilsouth --vnet-name vnet-haproxy --subnet subnet-haproxy --private-ip-address 10.15.0.11 
+
+#Create Virtual Machine
+az vm create --resource-group rg-haproxy --location brazilsouth --name vmhaproxy --image centos --size Standard_B1ms --admin-username ... --admin-password ... --vnet-name vnet-haproxy --subnet subnet-haproxy
+az vm create --resource-group rg-haproxy --location brazilsouth --name vmnginx01 --image centos --size Standard_B1ms --admin-username ... --admin-password ... --vnet-name vnet-haproxy --subnet subnet-haproxy
+az vm create --resource-group rg-haproxy --location brazilsouth --name vmnginx02 --image centos --size Standard_B1ms --admin-username ... --admin-password ... --vnet-name vnet-haproxy --subnet subnet-haproxy
